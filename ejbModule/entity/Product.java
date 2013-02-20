@@ -71,7 +71,9 @@ public class Product implements Serializable {
     }
 
     public void addSimilarProduct(Product similarProduct) {
+    	//adding similarProduct to 'this' product
     	getSimilarProducts().add(similarProduct);
+    	//adding 'this' product to the similar of similarProduct
     	similarProduct.getSimilarProducts().add(this);
     }
     
