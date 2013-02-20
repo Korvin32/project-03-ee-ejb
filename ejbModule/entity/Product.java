@@ -56,7 +56,7 @@ public class Product implements Serializable {
     @JoinTable(name = "similarity", joinColumns = {
         @JoinColumn(name = "primary_product_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "similar_product_id", referencedColumnName = "id")})
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Product> similarProducts;
 
     @ManyToMany(mappedBy = "similarProducts", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -72,7 +72,7 @@ public class Product implements Serializable {
 
     public void addSimilarProduct(Product similarProduct) {
     	//adding similarProduct to 'this' product
-    	getSimilarProducts().add(similarProduct);
+    	similarProducts.add(similarProduct);
     	//adding 'this' product to the similar of similarProduct
     	similarProduct.getSimilarProducts().add(this);
     }
