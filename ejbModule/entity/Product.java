@@ -71,8 +71,14 @@ public class Product implements Serializable {
     }
 
     public void addSimilarProduct(Product similarProduct) {
+    	System.out.println("[Product] in addSimilarProduct(): product to add  : " + similarProduct.toString() + "; this = " + this.toString());
+
     	getSimilarProducts().add(similarProduct);
     	similarProduct.getSimilarProducts().add(this);
+    	
+    	System.out.println(" ");
+    	System.out.println("[Product] in addSimilarProduct(): similarProducts = " + similarProducts);
+    	System.out.println("[Product] in addSimilarProduct(): going to persist data!");
     }
     
     public void becomeSimilarProductOf(Product primaryProduct) {
