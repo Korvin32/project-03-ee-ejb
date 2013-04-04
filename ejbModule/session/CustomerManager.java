@@ -13,6 +13,8 @@ import javax.persistence.Query;
 
 import entity.Address;
 import entity.Customer;
+import exception.NoSuchCustomerException;
+import exception.WronPasswordException;
 
 @Stateless
 @TransactionManagement(TransactionManagementType.CONTAINER)
@@ -40,12 +42,16 @@ public class CustomerManager {
 		}
     }
     
-    public Customer checkLoginData(String login, String password) {
+    public Customer checkLoginData(String login, String password) throws Exception {
     	Query query = em.createNamedQuery("Customer.findByLogin", Customer.class);
     	query.setParameter("login", login);
     	try {
         	Customer customer = (Customer) query.getSingleResult();
-        	if (customer != null && customer.getLogin().equalsIgnoreCase(login) && customer.getPassword().equals(password)) {
+        	if (customer == null) {
+        		throw new NoSuchCustomerException("No such user registered!");
+        	} else if (customer != null && !customer.getPassword().equals(password)) {
+        		throw new WronPasswordException("No such user registered!");
+        	} else if (customer != null && customer.getLogin().equalsIgnoreCase(login) && customer.getPassword().equals(password)) {
         		return customer;
         	} else {
 				return null;
