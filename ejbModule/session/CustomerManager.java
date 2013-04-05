@@ -42,23 +42,22 @@ public class CustomerManager {
 		}
     }
     
-    public Customer checkLoginData(String login, String password) throws Exception {
+    public Customer checkLoginData(String login, String password) throws NoSuchCustomerException, WronPasswordException {
     	Query query = em.createNamedQuery("Customer.findByLogin", Customer.class);
     	query.setParameter("login", login);
+    	
+    	Customer customer;
+    	
     	try {
-        	Customer customer = (Customer) query.getSingleResult();
-        	if (customer == null) {
-        		throw new NoSuchCustomerException("No such user registered!");
-        	} else if (customer != null && !customer.getPassword().equals(password)) {
-        		throw new WronPasswordException("No such user registered!");
-        	} else if (customer != null && customer.getLogin().equalsIgnoreCase(login) && customer.getPassword().equals(password)) {
-        		return customer;
-        	} else {
-				return null;
-			}
+        	customer = (Customer) query.getSingleResult();
 		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
+			System.out.println("[CustomerManager] - ERROR - Exception: " + e.getMessage());
+			throw new NoSuchCustomerException("No such user registered!");
 		}
+    	
+    	if (customer != null && !customer.getPassword().equals(password)) {
+    		throw new WronPasswordException("Wrong password entered!");
+    	}
+    	return customer;
     }
 }
