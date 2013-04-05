@@ -52,11 +52,11 @@ public class CustomerManager {
         	customer = (Customer) query.getSingleResult();
 		} catch (Exception e) {
 			System.out.println("[CustomerManager] - ERROR - Exception: " + e.getMessage());
-			throw new NoSuchCustomerException("No such user registered!");
+			throw new NoSuchCustomerException("No such user registered!: '" + login + "'");
 		}
     	
     	if (customer != null && !customer.getPassword().equals(password)) {
-    		throw new WronPasswordException("Wrong password entered!");
+    		throw new WronPasswordException("Wrong password for '" + login + "' entered!");
     	}
     	return customer;
     }
