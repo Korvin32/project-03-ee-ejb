@@ -34,27 +34,34 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Customer.findByPhone", query = "SELECT c FROM Customer c WHERE c.phone = :phone"),
     @NamedQuery(name = "Customer.findBySkype", query = "SELECT c FROM Customer c WHERE c.skype = :skype")})
 public class Customer implements Serializable {
-    private static final long serialVersionUID = 1L;
-    @Id
+    
+	private static final long serialVersionUID = 1L;
+    
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
+    
+	@Basic(optional = false)
     @Size(min = 1, max = 45)
     @Column(name = "login")
     private String login;
-    @Basic(optional = false)
+    
+	@Basic(optional = false)
     @Size(min = 1, max = 45)
     @Column(name = "password")
     private String password;
-    // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
+    
+	// @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
     @Size(max = 45)
     @Column(name = "phone")
     private String phone;
+    
     @Size(max = 45)
     @Column(name = "skype")
     private String skype;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
     private Collection<Address> addresses;
 
