@@ -60,4 +60,9 @@ public class CustomerManager {
     	}
     	return customer;
     }
+    
+    public Customer updateCustomerData(Customer customer) {
+    	System.out.println("in updateCustomerData(): " + customer);
+    	return em.merge(customer);
+    }
 }
