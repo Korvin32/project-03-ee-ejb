@@ -1,12 +1,12 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package entity;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -21,6 +21,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -31,16 +32,13 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "product")
 @NamedQueries({
-    @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p"),
-    @NamedQuery(name = "Product.findById", query = "SELECT p FROM Product p WHERE p.id = :id"),
-    @NamedQuery(name = "Product.findByName", query = "SELECT p FROM Product p WHERE p.name = :name"),
-    @NamedQuery(name = "Product.findByDescription", query = "SELECT p FROM Product p WHERE p.description = :description")})
+    @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")})
 public class Product implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
@@ -56,34 +54,19 @@ public class Product implements Serializable {
     @JoinTable(name = "similarity", joinColumns = {
         @JoinColumn(name = "primary_product_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "similar_product_id", referencedColumnName = "id")})
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Product> similarProducts;
-
-    @ManyToMany(mappedBy = "similarProducts", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Product> primaryProducts;
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Product> productList;
+    
+    @ManyToMany(mappedBy = "productList", fetch = FetchType.LAZY)
+    private List<Product> productList1;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product1", fetch = FetchType.LAZY)
+    private List<OrderedProduct> orderedProductList;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", fetch = FetchType.LAZY)
+    private List<Images> imagesList;
 
     public Product() {
-	}
-    
-    public Product(String name, String description) {
-    	this.name = name;
-    	this.description = description;
-    }
-
-    public void addSimilarProduct(Product similarProduct) {
-    	System.out.println("[Product] in addSimilarProduct(): product to add  : " + similarProduct.toString() + "; this = " + this.toString());
-
-    	getSimilarProducts().add(similarProduct);
-    	similarProduct.getSimilarProducts().add(this);
-    	
-    	System.out.println(" ");
-    	System.out.println("[Product] in addSimilarProduct(): similarProducts = " + similarProducts);
-    	System.out.println("[Product] in addSimilarProduct(): going to persist data!");
-    }
-    
-    public void becomeSimilarProductOf(Product primaryProduct) {
-    	getPrimaryProducts().add(primaryProduct);
-    	primaryProduct.getPrimaryProducts().add(this);
     }
 
     public Product(Integer id) {
@@ -114,20 +97,36 @@ public class Product implements Serializable {
         this.description = description;
     }
 
-    public Collection<Product> getSimilarProducts() {
-        return similarProducts;
+    public List<Product> getProductList() {
+        return productList;
     }
 
-    public void setSimilarProducts(Set<Product> similarProducts) {
-        this.similarProducts = similarProducts;
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
     }
 
-    public Set<Product> getPrimaryProducts() {
-        return primaryProducts;
+    public List<Product> getProductList1() {
+        return productList1;
     }
 
-    public void setPrimaryProducts(Set<Product> primaryProducts) {
-        this.primaryProducts = primaryProducts;
+    public void setProductList1(List<Product> productList1) {
+        this.productList1 = productList1;
+    }
+
+    public List<OrderedProduct> getOrderedProductList() {
+        return orderedProductList;
+    }
+
+    public void setOrderedProductList(List<OrderedProduct> orderedProductList) {
+        this.orderedProductList = orderedProductList;
+    }
+
+    public List<Images> getImagesList() {
+        return imagesList;
+    }
+
+    public void setImagesList(List<Images> imagesList) {
+        this.imagesList = imagesList;
     }
 
     @Override

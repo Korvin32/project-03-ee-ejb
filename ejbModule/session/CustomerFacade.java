@@ -1,14 +1,14 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package session;
 
+import entity.Customer;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
-import entity.Customer;
 
 /**
  *
@@ -16,8 +16,7 @@ import entity.Customer;
  */
 @Stateless
 public class CustomerFacade extends AbstractFacade<Customer> {
-    
-	@PersistenceContext(unitName = "webApp_001PU")
+    @PersistenceContext(unitName = "webApp_001PU")
     private EntityManager em;
 
     @Override
