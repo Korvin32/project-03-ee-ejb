@@ -11,7 +11,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,7 +28,12 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "customer")
 @NamedQueries({
-    @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c")})
+    @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c"),
+    @NamedQuery(name = "Customer.findById", query = "SELECT c FROM Customer c WHERE c.id = :id"),
+    @NamedQuery(name = "Customer.findByLogin", query = "SELECT c FROM Customer c WHERE c.login = :login"),
+    @NamedQuery(name = "Customer.findByPassword", query = "SELECT c FROM Customer c WHERE c.password = :password"),
+    @NamedQuery(name = "Customer.findByPhone", query = "SELECT c FROM Customer c WHERE c.phone = :phone"),
+    @NamedQuery(name = "Customer.findBySkype", query = "SELECT c FROM Customer c WHERE c.skype = :skype")})
 public class Customer implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -54,10 +58,8 @@ public class Customer implements Serializable {
     @Size(max = 45)
     @Column(name = "skype")
     private String skype;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer", fetch = FetchType.LAZY)
-    private List<CustomerOrder> customerOrderList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer", fetch = FetchType.LAZY)
-    private List<Address> addressList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    private List<Address> addresses;
 
     public Customer() {
     }
@@ -112,20 +114,12 @@ public class Customer implements Serializable {
         this.skype = skype;
     }
 
-    public List<CustomerOrder> getCustomerOrderList() {
-        return customerOrderList;
+    public List<Address> getAddresses() {
+        return addresses;
     }
 
-    public void setCustomerOrderList(List<CustomerOrder> customerOrderList) {
-        this.customerOrderList = customerOrderList;
-    }
-
-    public List<Address> getAddressList() {
-        return addressList;
-    }
-
-    public void setAddressList(List<Address> addressList) {
-        this.addressList = addressList;
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
     }
 
     @Override

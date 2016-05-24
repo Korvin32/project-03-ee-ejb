@@ -32,39 +32,32 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "product")
 @NamedQueries({
-    @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")})
+    @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p"),
+    @NamedQuery(name = "Product.findById", query = "SELECT p FROM Product p WHERE p.id = :id"),
+    @NamedQuery(name = "Product.findByName", query = "SELECT p FROM Product p WHERE p.name = :name"),
+    @NamedQuery(name = "Product.findByDescription", query = "SELECT p FROM Product p WHERE p.description = :description")})
 public class Product implements Serializable {
-    
     private static final long serialVersionUID = 1L;
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    
     @Size(max = 45)
     @Column(name = "name")
     private String name;
-    
     @Size(max = 45)
     @Column(name = "description")
     private String description;
-    
     @JoinTable(name = "similarity", joinColumns = {
         @JoinColumn(name = "primary_product_id", referencedColumnName = "id")}, inverseJoinColumns = {
         @JoinColumn(name = "similar_product_id", referencedColumnName = "id")})
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     private List<Product> productList;
-    
-    @ManyToMany(mappedBy = "productList", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "productList")
     private List<Product> productList1;
-    
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product1", fetch = FetchType.LAZY)
-    private List<OrderedProduct> orderedProductList;
-    
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", fetch = FetchType.LAZY)
-    private List<Images> imagesList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", fetch=FetchType.EAGER)
+    private List<Images> images;
 
     public Product() {
     }
@@ -113,20 +106,12 @@ public class Product implements Serializable {
         this.productList1 = productList1;
     }
 
-    public List<OrderedProduct> getOrderedProductList() {
-        return orderedProductList;
+    public List<Images> getImages() {
+        return images;
     }
 
-    public void setOrderedProductList(List<OrderedProduct> orderedProductList) {
-        this.orderedProductList = orderedProductList;
-    }
-
-    public List<Images> getImagesList() {
-        return imagesList;
-    }
-
-    public void setImagesList(List<Images> imagesList) {
-        this.imagesList = imagesList;
+    public void setImages(List<Images> images) {
+        this.images = images;
     }
 
     @Override
