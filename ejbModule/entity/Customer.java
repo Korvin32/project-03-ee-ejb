@@ -144,7 +144,7 @@ public class Customer implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Customer[id=" + id + ", login=" + login + "]";
+        return "entity.Customer[ id=" + id + " ]";
     }
     
 }
