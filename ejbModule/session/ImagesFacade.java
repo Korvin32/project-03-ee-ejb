@@ -5,7 +5,7 @@
  */
 package session;
 
-import entity.Address;
+import entity.Images;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author zagorod
  */
 @Stateless
-public class AddressFacade extends AbstractFacade<Address> {
+public class ImagesFacade extends AbstractFacade<Images> {
     @PersistenceContext(unitName = "webApp_001PU")
     private EntityManager em;
 
@@ -24,8 +24,8 @@ public class AddressFacade extends AbstractFacade<Address> {
         return em;
     }
 
-    public AddressFacade() {
-        super(Address.class);
+    public ImagesFacade() {
+        super(Images.class);
     }
     
 }

@@ -1,11 +1,11 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package entity;
 
 import java.io.Serializable;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -42,30 +43,36 @@ public class Address implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
+    @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "street")
     private String street;
     @Basic(optional = false)
+    @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "house")
     private String house;
     @Basic(optional = false)
+    @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "appartment")
     private String appartment;
     @Basic(optional = false)
+    @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "zip_code")
     private String zipCode;
     @Basic(optional = false)
+    @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "city")
     private String city;
     @Basic(optional = false)
+    @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "country")
     private String country;
-    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    @JoinColumn(name = "customer", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Customer customer;
 

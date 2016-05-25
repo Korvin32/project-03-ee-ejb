@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="project-3-ee-ejb">
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="project-03-ee-ejb">
         <wb-resource deploy-path="/" source-path="/ejbModule" tag="defaultRootSource"/>
-        <property name="java-output-path" value="/project-3-ee-ejb/build/classes"/>
+        <wb-resource deploy-path="/" source-path="/metamodel"/>
+        <property name="java-output-path" value="/project-03-ee-ejb/build/classes"/>
     </wb-module>
 </project-modules>

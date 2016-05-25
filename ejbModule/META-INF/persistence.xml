@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-  <persistence-unit name="webApp_001PU" transaction-type="JTA">
-    <jta-data-source>java:jboss/datasources/webApp_001PU</jta-data-source> <!-- hier jndi-name aus JBoss-Konfig setzen -->
-    <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <properties>
-        <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
-        <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
-        <property name="hibernate.show_sql" value="false"></property>
-        <property name="hibernate.cache.use_second_level_cache" value="true"/>
-        <property name="hibernate.cache.use_query_cache" value="true" />
-        <property name="hibernate.cache.use_minimal_puts" value="true"/>
-		<property name="hibernate.hbm2ddl.auto" value="update"/>
-<!-- 		<property name="hibernate.hbm2ddl.auto" value="create"/> -->
-<!-- 		<property name = "hibernate.show_sql" value = "true" /> -->
-<!-- 		<property name = "hibernate.format_sql" value = "true" /> -->
-    </properties>
-  </persistence-unit>
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+	version="2.1">
+
+	<persistence-unit name="webApp_001PU"
+		transaction-type="JTA">
+		<jta-data-source>java:jboss/datasources/webApp_001PU</jta-data-source> <!-- hier jndi-name aus JBoss-Konfig setzen -->
+		<exclude-unlisted-classes>false</exclude-unlisted-classes>
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
+			<property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider" />
+			<property name="hibernate.show_sql" value="false"></property>
+			<property name="hibernate.cache.use_second_level_cache"
+				value="true" />
+			<property name="hibernate.cache.use_query_cache" value="true" />
+			<property name="hibernate.cache.use_minimal_puts" value="true" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<!-- <property name="hibernate.hbm2ddl.auto" value="create"/> -->
+			<!-- <property name = "hibernate.show_sql" value = "true" /> -->
+			<!-- <property name = "hibernate.format_sql" value = "true" /> -->
+		</properties>
+	</persistence-unit>
 </persistence>
