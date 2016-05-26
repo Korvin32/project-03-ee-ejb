@@ -11,6 +11,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import entity.Address;
 import entity.Customer;
 import exception.NoSuchCustomerException;
@@ -20,6 +23,8 @@ import exception.WronPasswordException;
 @TransactionManagement(TransactionManagementType.CONTAINER)
 public class CustomerManager {
 
+    private static final Logger LOG = LoggerFactory.getLogger(CustomerManager.class);
+    
     @PersistenceContext(unitName = "webApp_001PU")
     private EntityManager em;
     
@@ -51,7 +56,7 @@ public class CustomerManager {
     	try {
         	customer = (Customer) query.getSingleResult();
 		} catch (Exception e) {
-			System.out.println("[CustomerManager] - ERROR - Exception: " + e.getMessage());
+			LOG.error("Exception: " + e.getMessage());
 			throw new NoSuchCustomerException("No such user registered!: '" + login + "'");
 		}
     	
@@ -62,7 +67,7 @@ public class CustomerManager {
     }
     
     public Customer updateCustomerData(Customer customer) {
-    	System.out.println("in updateCustomerData(): " + customer);
+    	LOG.info("in updateCustomerData(): " + customer);
     	return em.merge(customer);
     }
 }

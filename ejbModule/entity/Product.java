@@ -66,8 +66,8 @@ public class Product implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product1", fetch = FetchType.LAZY)
     private List<OrderedProduct> orderedProductList;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", fetch = FetchType.LAZY)
-    private List<Images> imagesList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", fetch = FetchType.EAGER)
+    private List<Images> images;
 
     public Product() {
     }
@@ -124,12 +124,12 @@ public class Product implements Serializable {
         this.orderedProductList = orderedProductList;
     }
 
-    public List<Images> getImagesList() {
-        return imagesList;
+    public List<Images> getImages() {
+        return images;
     }
 
-    public void setImagesList(List<Images> imagesList) {
-        this.imagesList = imagesList;
+    public void setImages(List<Images> imagesList) {
+        this.images = imagesList;
     }
 
     @Override

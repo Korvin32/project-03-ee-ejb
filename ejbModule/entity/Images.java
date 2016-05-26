@@ -119,6 +119,6 @@ public class Images implements Serializable {
 
     @PostLoad
     public void createImageUrl() {
-      this.url = "http://static.artmama.net/" + this.imagePath;
+      this.url = "http://static.artmama.net/store/" + this.imagePath;
     }
 }
