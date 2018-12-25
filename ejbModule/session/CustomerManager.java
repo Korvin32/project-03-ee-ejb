@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 import entity.Address;
 import entity.Customer;
 import exception.NoSuchCustomerException;
-import exception.WronPasswordException;
+import exception.WrongPasswordException;
 
 @Stateless
 @TransactionManagement(TransactionManagementType.CONTAINER)
@@ -47,7 +47,7 @@ public class CustomerManager {
 		}
     }
     
-    public Customer checkLoginData(String login, String password) throws NoSuchCustomerException, WronPasswordException {
+    public Customer checkLoginData(String login, String password) throws NoSuchCustomerException, WrongPasswordException {
     	Query query = em.createNamedQuery("Customer.findByLogin", Customer.class);
     	query.setParameter("login", login);
     	
@@ -61,7 +61,7 @@ public class CustomerManager {
 		}
     	
     	if (customer != null && !customer.getPassword().equals(password)) {
-    		throw new WronPasswordException("Wrong password for '" + login + "' entered!");
+    		throw new WrongPasswordException("Wrong password for '" + login + "' entered!");
     	}
     	return customer;
     }
